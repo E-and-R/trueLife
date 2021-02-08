@@ -1,13 +1,25 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, SafeAreaView } from 'react-native';
+import SermonList from './Components/sermonList';
+import * as firebase from "firebase";
+import 'firebase/firestore';
+import apiKeys from './config/keys';
+
 
 export default function App() {
+  if (!firebase.apps.length) {
+    console.log('Connected with Firebase')
+    firebase.initializeApp(apiKeys.firebaseConfig);
+  }
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <SafeAreaView>
+      <View style={styles.container} >
+        <SermonList />
+        <StatusBar style="auto" />
+      </View>
+    </SafeAreaView>
   );
 }
 
